@@ -1,19 +1,26 @@
-export default function Home() {
+export default function About() {
   return (
-    <div className="py-12 animate-fade-in">
-      <h1 className="text-5xl font-bold mb-6">안녕하세요, 스테이영입니다.</h1>
-      <p className="text-xl text-gray-600 leading-relaxed mb-8">
-        기록을 통해 꾸준히 성장해 나가고자 합니다.
-        <br />
-        저는 프론트엔드 개발자이며, React, TypeScript 등을 주로 다룹니다.
-      </p>
+    <div className="py-24 animate-fade-in max-w-2xl">
+      <h1 className="text-5xl md:text-7xl font-black mb-10 tracking-tighter leading-tight text-(--foreground)">
+        안녕하세요, <br />
+        <span className="text-(--accent)">가영(Young)</span>입니다.
+      </h1>
 
-      <div className="flex gap-4">
+      <div className="space-y-6 text-xl md:text-2xl text-(--foreground) opacity-80 leading-relaxed font-medium mb-12">
+        <p>오늘의 나를 더 성장하게 만들어 나가는 과정을 좋아합니다.</p>
+        <p className="opacity-60 text-lg md:text-xl">
+          React와 TypeScript를 주로 사용하는 프론트엔드 개발자입니다.
+        </p>
+      </div>
+
+      <div className="flex flex-wrap gap-4">
         <a
           href="https://github.com/kikayoung"
-          className="px-5 py-2 bg-black text-white rounded-full text-sm hover:bg-gray-800 transition-all"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-8 py-3 bg-(--accent) text-(--background) rounded-full font-black hover:scale-105 transition-all shadow-lg shadow-(--accent)/20"
         >
-          Github
+          GITHUB
         </a>
         {/* <a
           href="https://linkedin.com/..."// 링크드인 없음ㅜㅜ
@@ -23,11 +30,13 @@ export default function Home() {
         </a> */}
         <a
           href="mailto:kayoung7189@naver.com"
-          className="px-5 py-2 border border-gray-200 rounded-full text-sm hover:bg-gray-50 transition-all"
+          className="px-8 py-3 border-2 border-(--accent) text-(--accent) rounded-full font-black hover:bg-(--accent) hover:text-(--background) transition-all"
         >
-          Email
+          EMAIL
         </a>
       </div>
+
+      <div className="mt-32 border-t border-(--accent)/10 dark:border-white/10" />
     </div>
   );
 }

@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+}
+
+:root {
+  /* 라이트모드 */
+  --background: #f9f9f8;
+  --foreground: #1a2f23;
+  --accent: #065f46;
+  --accent-soft: #e1efe6;
+}
+
+.dark {
+  /* 다크모드 */
+  --background: #0a0f0d;
+  --foreground: #d1d5d1;
+  --accent: #82a98f;
+  --accent-soft: #1a241e;
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Pretendard Variable', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* 텍스트 드래그 색상 */
+::selection {
+  background-color: var(--accent-soft);
+  color: var(--accent);
+}

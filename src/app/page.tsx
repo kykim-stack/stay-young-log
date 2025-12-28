@@ -6,64 +6,68 @@ export default async function Home() {
   const recentPosts = allPosts.slice(0, 3);
 
   return (
-    <div className="space-y-24 py-10">
-      <section className="animate-fade-in">
-        <h1 className="text-6xl font-black tracking-tighter mb-8">
+    <div className="space-y-32 py-20">
+      <section className="animate-fade-in px-4">
+        <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9] text-[var(--foreground)]">
           Stay Young, <br />
-          Record Everything.
+          Record <span className="text-(--accent)">Everything.</span>
         </h1>
-        <p className="text-xl text-gray-600 max-w-2xl leading-relaxed">
-          이 블로그는 제가 경험한 일상과 지식을 기록하는 공간입니다.
+        <p className="text-xl md:text-2xl text-(--foreground) opacity-60 max-w-2xl leading-relaxed font-medium">
+          이 블로그는 제가 경험한 일상과 지식을 기록하는{' '}
+          <br className="hidden md:block" />
+          저의 독자적인 아카이브입니다.
         </p>
-        <div className="mt-10 flex gap-4">
+        <div className="mt-12">
           <Link
             href="/about"
-            className="px-6 py-3 bg-black text-white rounded-full font-bold hover:bg-gray-800 transition-all"
+            className="inline-block px-10 py-4 bg-(--accent) text-(--background) rounded-full font-black text-lg hover:brightness-110 hover:scale-105 transition-all shadow-lg shadow-[(--accent)]/20"
           >
-            더 알아보기
+            ABOUT ME
           </Link>
         </div>
       </section>
 
-      <section>
-        <div className="flex justify-between items-end mb-10">
-          <h2 className="text-3xl font-black">Recent Posts</h2>
+      <section className="px-4">
+        <div className="flex justify-between items-end mb-12 border-b border-(--accent)/10 pb-6">
+          <h2 className="text-3xl font-black tracking-tighter text-(--foreground)">
+            Recent Posts
+          </h2>
           <Link
             href="/blog"
-            className="text-blue-600 font-bold hover:underline"
+            className="text-(--accent) font-black text-sm tracking-widest hover:opacity-60 transition-opacity"
           >
-            더 보기 +
+            VIEW ALL +
           </Link>
         </div>
 
-        <div className="flex flex-col gap-10">
+        <div className="grid grid-cols-1 gap-12">
           {recentPosts.map((post: any) => (
             <Link
               href={`/blog/${post.slug}`}
               key={post.slug}
-              className="group flex gap-8 items-center"
+              className="group flex flex-col md:flex-row gap-8 items-center"
             >
-              <div className="w-40 h-24 bg-gray-100 rounded-xl overflow-hidden flex-shrink-0">
+              <div className="w-full md:w-56 h-36 bg-(--accent)/5 rounded-4xl overflow-hidden shrink-0 grayscale group-hover:grayscale-0 transition-all duration-500">
                 {post.thumbnail ? (
                   <img
                     src={post.thumbnail}
                     alt=""
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-xs text-gray-400 font-bold">
-                    NO IMG
+                  <div className="w-full h-full flex items-center justify-center text-[10px] tracking-[0.2em] font-black text-(--accent)/20">
+                    YOUNG LOG
                   </div>
                 )}
               </div>
-              <div>
-                <span className="text-sm text-blue-500 font-bold">
+              <div className="grow">
+                <span className="text-[11px] text-(--accent) font-black tracking-widest uppercase opacity-60">
                   {post.date}
                 </span>
-                <h3 className="text-xl font-bold group-hover:text-blue-600 transition-colors">
+                <h3 className="text-2xl font-black mt-2 text-(--foreground) group-hover:text-(--accent) transition-colors tracking-tight">
                   {post.title}
                 </h3>
-                <p className="text-gray-500 line-clamp-1 mt-1 text-sm">
+                <p className="text-(--foreground) opacity-50 line-clamp-1 mt-2 text-base font-medium">
                   {post.description}
                 </p>
               </div>
