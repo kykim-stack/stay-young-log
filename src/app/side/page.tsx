@@ -3,11 +3,11 @@ import Link from 'next/link';
 export default function Side() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-6 animate-fade-in">
-      <h1 className="text-6xl md:text-8xl font-black text-(--accent) opacity-20 tracking-tighter">
+      <h1 className="text-4xl md:text-6xl font-black text-(--accent) opacity-20 tracking-tighter">
         Still Dreaming
       </h1>
 
-      <div className="-mt-4 md:-mt-8">
+      <div>
         <p className="mt-4 text-(--foreground) opacity-60 font-medium text-lg md:text-xl">
           해당 페이지는 무엇을 나타낼지 고민 중입니다!
           <br />

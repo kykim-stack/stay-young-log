@@ -1,5 +1,8 @@
 import { getPostData, getAllPosts } from '@/lib/posts';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import Comments from './Comment';
+
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -39,7 +42,7 @@ export default async function PostPage({
           </time>
         </div>
 
-        <h1 className="text-4xl md:text-6xl font-black leading-tight tracking-tighter text-(--foreground) truncate w-full px-4">
+        <h1 className="text-3xl md:text-5xl font-black leading-tight tracking-tight text-(--foreground) break-keep w-full px-4">
           {post.title}
         </h1>
         {post.description && (
@@ -64,6 +67,7 @@ export default async function PostPage({
       >
         <MDXRemote source={post.content} />
       </section>
+      <Comments slug={slug} title={post.title} />{' '}
     </article>
   );
 }

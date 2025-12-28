@@ -8,11 +8,11 @@ export default async function Home() {
   return (
     <div className="space-y-32 py-20">
       <section className="animate-fade-in px-4">
-        <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9] text-[var(--foreground)]">
+        <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-10 leading-[0.9] text-[var(--foreground)]">
           Stay Young, <br />
           Record <span className="text-(--accent)">Everything.</span>
         </h1>
-        <p className="text-xl md:text-2xl text-(--foreground) opacity-60 max-w-2xl leading-relaxed font-medium">
+        <p className="text-xl md:text-xl text-(--foreground) opacity-60 max-w-2xl leading-relaxed font-medium">
           이 블로그는 제가 경험한 일상과 지식을 기록하는{' '}
           <br className="hidden md:block" />
           저의 독자적인 아카이브입니다.

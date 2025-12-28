@@ -1,14 +1,14 @@
 export default function About() {
   return (
     <div className="py-24 animate-fade-in max-w-2xl">
-      <h1 className="text-5xl md:text-7xl font-black mb-10 tracking-tighter leading-tight text-(--foreground)">
+      <h1 className="text-3xl md:text-5xl font-black mb-10 tracking-tight leading-tight text-(--foreground)">
         안녕하세요, <br />
         <span className="text-(--accent)">가영(Young)</span>입니다.
       </h1>
 
-      <div className="space-y-6 text-xl md:text-2xl text-(--foreground) opacity-80 leading-relaxed font-medium mb-12">
+      <div className="space-y-6 text-base md:text-lg text-(--foreground) opacity-80 leading-relaxed font-medium mb-12">
         <p>오늘의 나를 더 성장하게 만들어 나가는 과정을 좋아합니다.</p>
-        <p className="opacity-60 text-lg md:text-xl">
+        <p className="opacity-60 text-sm md:text-base">
           React와 TypeScript를 주로 사용하는 프론트엔드 개발자입니다.
         </p>
       </div>
@@ -35,7 +35,6 @@ export default function About() {
           EMAIL
         </a>
       </div>
-
       <div className="mt-32 border-t border-(--accent)/10 dark:border-white/10" />
     </div>
   );

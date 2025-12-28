@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+export const revalidate = 60;
+
 export default function BlogList({ allPosts = [] }: { allPosts: any[] }) {
   const [selectedCategory, setSelectedCategory] = useState('전체');
 
@@ -71,7 +73,7 @@ export default function BlogList({ allPosts = [] }: { allPosts: any[] }) {
                   {post.category}
                 </p>
 
-                <h2 className="text-3xl md:text-4xl font-black leading-tight tracking-tighter mb-4 break-keep text-(--foreground) transition-colors duration-300 group-hover:text-(--accent)">
+                <h2 className="text-xl md:text-2xl font-black leading-tight tracking-tighter mb-4 break-keep text-(--foreground) transition-colors duration-300 group-hover:text-(--accent)">
                   {post.title}
                 </h2>
 
