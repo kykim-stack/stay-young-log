@@ -6,6 +6,8 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+export const revalidate = 60; // 노션 업데이트 60초
+
 const n2m = new NotionToMarkdown({ notionClient: notion });
 const DATABASE_ID = (process.env.NOTION_DATABASE_ID || '').trim();
 
