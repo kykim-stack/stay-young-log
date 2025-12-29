@@ -1,6 +1,6 @@
 import { getPostData, getAllPosts } from '@/lib/posts';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import Comments from './Comment';
+import Comments from '../../../components/Comment';
 
 export const revalidate = 60;
 
@@ -67,7 +67,7 @@ export default async function PostPage({
       >
         <MDXRemote source={post.content} />
       </section>
-      <Comments slug={slug} title={post.title} />{' '}
+      <Comments slug={slug} />{' '}
     </article>
   );
 }

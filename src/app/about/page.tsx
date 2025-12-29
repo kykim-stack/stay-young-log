@@ -67,8 +67,12 @@ export default function About() {
               Comments
             </h3>
             <p className="text-sm opacity-80 leading-relaxed">
-              오픈소스 댓글 서비스인 Cusdis를 연동하여 사용자의 개인정보를
-              보호하면서 자유로운 소통 공간을 마련했습니다.
+              외부 서비스의 의존성을 줄이고자{' '}
+              <span className="font-bold text-(--foreground)">
+                Supabase Realtime
+              </span>
+              을 활용하여 댓글 시스템을 직접 구축했습니다. 새로고침 없는 실시간
+              소통과 커스텀 UI를 통해 최적화된 UX를 제공합니다.
             </p>
           </div>
 
