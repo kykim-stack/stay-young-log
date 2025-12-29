@@ -6,22 +6,28 @@
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-vsc-tab: var(--vsc-tab);
+  --color-vsc-border: var(--vsc-border);
 }
 
 :root {
-  /* 라이트모드 */
-  --background: #f9f9f8;
-  --foreground: #1a2f23;
-  --accent: #065f46;
-  --accent-soft: #e1efe6;
+  /* --- VS Code Light --- */
+  --background: #ffffff;
+  --foreground: #333333;
+  --accent: #007acc;
+  --accent-soft: #eff6fc;
+  --vsc-tab: #f3f3f3;
+  --vsc-border: #e5e5e5;
 }
 
 .dark {
-  /* 다크모드 */
-  --background: #0a0f0d;
-  --foreground: #d1d5d1;
-  --accent: #82a98f;
-  --accent-soft: #1a241e;
+  /* --- VS Code Dark --- */
+  --background: #1e1e1e; /* 에디터 배경 */
+  --foreground: #d4d4d4; /* 기본 텍스트 */
+  --accent: #3794ff; /* 다크모드 하이라이트 블루 */
+  --accent-soft: #2a2d2e; /* 선택된 줄 배경 느낌 */
+  --vsc-tab: #252526; /* 탭/사이드바 배경 */
+  --vsc-border: #333333; /* 경계선 */
 }
 
 @layer base {
@@ -29,14 +35,14 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: 'Pretendard Variable', sans-serif;
+    font-family: 'Pretendard Variable', ui-monospace, SFMono-Regular, Menlo,
+      Monaco, Consolas, monospace;
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
-/* 텍스트 드래그 색상 */
 ::selection {
-  background-color: var(--accent-soft);
-  color: var(--accent);
+  background-color: #264f7840;
+  color: inherit;
 }

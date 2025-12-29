@@ -66,54 +66,93 @@ export default function Comments({ slug }: { slug: string }) {
   }, [slug]);
 
   return (
-    <div className="mt-20 pt-10 border-t border-(--accent)/10">
-      <h3 className="text-xl font-black mb-8 text-(--foreground)">
-        Comments ({comments.length})
-      </h3>
+    <div className="mt-32 font-mono text-sm border-t border-(--vsc-border)">
+      <div className="flex gap-6 border-b border-(--vsc-border) mb-8 text-[11px] font-bold">
+        <div className="border-b border-(--accent) py-2 px-1 text-(--foreground) cursor-pointer">
+          TERMINAL
+        </div>
+        <div className="py-2 opacity-40 cursor-pointer hover:opacity-100 transition-opacity">
+          DEBUG CONSOLE
+        </div>
+        <div className="py-2 opacity-40 cursor-pointer hover:opacity-100 transition-opacity">
+          OUTPUT
+        </div>
+      </div>
 
-      {/* 댓글 입력 폼 */}
-      <form onSubmit={handleSubmit} className="mb-10 space-y-4">
-        <input
-          type="text"
-          placeholder="Nickname"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          className="w-full p-3 rounded-lg bg-(--background) border border-(--accent)/20 focus:outline-none focus:border-(--accent)"
-        />
-        <textarea
-          placeholder="Write a comment..."
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="w-full p-3 h-32 rounded-lg bg-(--background) border border-(--accent)/20 focus:outline-none focus:border-(--accent) resize-none"
-        />
-        <button className="px-6 py-2 bg-(--accent) text-(--background) font-bold rounded-lg hover:opacity-90 transition-all">
-          Submit
-        </button>
-      </form>
+      <div className="mb-12">
+        <div className="flex items-center gap-2 mb-6 opacity-60">
+          <span className="text-[#4EC9B0]">➔</span>
+          <span className="text-[#569CD6]">~/stay-young-log</span>
+          <span className="text-[#CE9178]">git(main)</span>
+          <span className="text-[#DCDCAA]">npm run comment:write</span>
+        </div>
 
-      {/* 댓글 목록 */}
-      <div className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 bg-(--vsc-tab) p-6 rounded-lg border border-(--vsc-border)"
+        >
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex items-center gap-2 grow">
+              <span className="text-[#008000] dark:text-[#6A9955] shrink-0">
+                nickname:
+              </span>
+              <input
+                type="text"
+                placeholder="Enter_your_name..."
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+                className="w-full bg-transparent border-none focus:outline-none text-(--foreground) placeholder:opacity-20"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-[#008000] dark:text-[#6A9955]">content:</span>
+            <textarea
+              placeholder="Type your message here..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="w-full bg-transparent border-none focus:outline-none text-(--foreground) resize-none h-20 placeholder:opacity-20"
+            />
+          </div>
+          <div className="flex justify-end">
+            <button className="text-[#4EC9B0] hover:bg-[#4EC9B0]/10 px-4 py-1 border border-[#4EC9B0] rounded-sm transition-all text-xs font-bold">
+              Execute Command (Enter)
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div className="space-y-2">
+        <div className="opacity-30 mb-4 text-[10px]">
+          -- TOTAL COMMENTS: {comments.length} --
+        </div>
+
         {isLoading ? (
           <div className="animate-pulse text-(--accent)">
-            Loading comments...
+            [LOADING...] fetching data from supabase...
           </div>
         ) : (
           comments.map((comment) => (
             <div
               key={comment.id}
-              className="p-4 rounded-xl bg-(--accent)/5 border border-(--accent)/5"
+              className="group flex gap-3 p-2 hover:bg-(--vsc-tab) rounded-sm transition-all border-l-2 border-transparent hover:border-(--accent)"
             >
-              <div className="flex justify-between mb-2">
-                <span className="font-bold text-(--accent)">
-                  {comment.nickname}
+              <span className="opacity-20 shrink-0 select-none">
+                [
+                {new Date(comment.created_at).toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
+                ]
+              </span>
+              <div className="flex flex-col md:flex-row gap-2">
+                <span className="text-[#DCDCAA] font-bold shrink-0">
+                  {comment.nickname}:
                 </span>
-                <span className="text-xs opacity-50">
-                  {new Date(comment.created_at).toLocaleDateString()}
+                <span className="text-(--foreground) opacity-80 break-all">
+                  {comment.content}
                 </span>
               </div>
-              <p className="text-(--foreground) leading-relaxed">
-                {comment.content}
-              </p>
             </div>
           ))
         )}
