@@ -16,7 +16,12 @@ export default function RootLayout({
   const TABS = [
     { name: 'Home.tsx', path: '/', icon: 'tsx', color: '#007ACC' },
     { name: 'Blog.mdx', path: '/blog', icon: 'mdx', color: '#4EC9B0' },
-    { name: 'Side.log', path: '/side', icon: 'log', color: '#DCDCAA' },
+    {
+      name: 'GuestBook.log',
+      path: '/guestbook',
+      icon: 'log',
+      color: '#DCDCAA',
+    },
     { name: 'README.md', path: '/about', icon: 'M↓', color: '#E37933' },
   ];
 
@@ -60,10 +65,10 @@ export default function RootLayout({
                     blog
                   </Link>
                   <Link
-                    href="/side"
+                    href="/guestbook"
                     className="hover:text-(--accent) transition-colors"
                   >
-                    side
+                    guestbook
                   </Link>
                   <Link
                     href="/about"
