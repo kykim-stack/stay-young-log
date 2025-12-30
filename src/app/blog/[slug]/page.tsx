@@ -2,6 +2,7 @@ import { getPostData, getAllPosts } from '@/lib/posts';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Comments from '../../../components/Comment';
 import Link from 'next/link';
+import remarkBreaks from 'remark-breaks';
 
 export const revalidate = 60;
 
@@ -12,10 +13,14 @@ export async function generateStaticParams() {
   }));
 }
 const slugify = (text: string) => {
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\wㄱ-ㅎㅏ-ㅣ가-힣-]/g, '');
+  return (
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      // 특수문자 제거하되 한글은 유지
+      .replace(/[^\wㄱ-ㅎㅏ-ㅣ가-힣-]/g, '')
+  );
 };
 
 // params 앞에 await를 쓰는 것이 최신 Next.js의 규칙
@@ -135,19 +140,51 @@ export default async function PostPage({
 
         <section className="relative pl-10 border-l border-(--vsc-border) mb-20">
           <div
-            className="prose prose-slate dark:prose-invert max-w-none
-            font-sans
-            text-(--foreground) 
-            prose-p:text-(--foreground) prose-p:opacity-90 prose-p:leading-[1.8] prose-p:text-lg
-            prose-headings:font-bold prose-headings:text-(--foreground)
-            prose-h2:text-2xl prose-h2:text-[#4EC9B0] prose-h2:border-b prose-h2:border-(--vsc-border) prose-h2:pb-2
-            prose-a:text-(--accent) prose-a:no-underline hover:prose-a:underline
-            prose-code:bg-(--vsc-tab) prose-code:px-1.5 prose-code:rounded prose-code:text-(--accent)
-            prose-blockquote:border-l-4 prose-blockquote:border-[#6A9955] prose-blockquote:bg-(--vsc-tab) prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:text-[#6A9955]
-          "
+            className="prose max-w-none
+              font-sans
+              /* 1. 기본 텍스트 설정 (라이트/다크 대응) */
+              text-(--foreground) 
+              
+              /* 2. 볼드체(Strong) 색상 강제 지정 - 라이트 모드 가독성 해결 */
+              prose-strong:text-(--foreground) 
+              prose-strong:font-bold
+              
+              /* 3. 노션 스타일 제목(Headings) */
+              prose-headings:text-(--foreground)
+              prose-headings:tracking-tight
+              prose-h1:text-4xl prose-h1:mb-8
+              prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:font-bold prose-h2:text-[#4EC9B0] prose-h2:border-b prose-h2:border-(--vsc-border) prose-h2:pb-2
+              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:font-semibold
+              
+              /* 4. 본문 문단 스타일 */
+              prose-p:text-(--foreground) 
+              prose-p:opacity-90 
+              prose-p:leading-loose
+              prose-p:text-lg
+              prose-p:my-4
+              
+              /* 5. 노션 스타일 리스트(List) */
+              prose-ul:list-disc prose-ol:list-decimal
+              prose-li:my-1
+              
+              /* 6. 링크 및 코드 스타일 */
+              prose-a:text-(--accent) prose-a:no-underline hover:prose-a:underline
+              prose-code:text-(--accent) prose-code:bg-(--vsc-tab) prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+              
+              /* 7. 인용문(Blockquote) */
+              prose-blockquote:border-l-4 prose-blockquote:border-[#6A9955] prose-blockquote:bg-(--vsc-tab) prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:text-[#6A9955] prose-blockquote:not-italic
+              
+              /* 8. 이미지 */
+              prose-img:rounded-xl prose-img:shadow-lg
+            "
           >
             <MDXRemote
               source={post.content}
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkBreaks],
+                },
+              }}
               components={{
                 h2: (props) => {
                   const id = slugify(String(props.children));
@@ -158,7 +195,7 @@ export default async function PostPage({
                   return <h3 {...props} id={id} className="scroll-mt-30" />;
                 },
               }}
-            />{' '}
+            />
           </div>
         </section>
 

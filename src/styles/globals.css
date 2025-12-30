@@ -68,3 +68,17 @@ html {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(121, 121, 121, 0.4);
 }
+@keyframes highlight-fade {
+  0% {
+    background-color: rgba(78, 201, 176, 0.4);
+    box-shadow: 0 0 15px rgba(78, 201, 176, 0.2);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.highlight-active {
+  animation: highlight-fade 2s ease-out; /* 2초 동안 반짝이고 사라짐 */
+  border-radius: 4px;
+}
