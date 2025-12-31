@@ -35,13 +35,13 @@ export default function RootLayout({
 
   return (
     <html lang="ko" suppressHydrationWarning>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="rf3bBkNVMMbHw31ppHojzF8le4l54jcGHp7QB73KrzU"
+        />
+      </head>
       <body className="antialiased flex flex-col min-h-screen bg-(--background) text-(--foreground) transition-colors duration-300 font-mono h-screen">
-        <head>
-          <meta
-            name="google-site-verification"
-            content="rf3bBkNVMMbHw31ppHojzF8le4l54jcGHp7QB73KrzU"
-          />
-        </head>
         <ThemeProvider>
           {/* <MyCursor /> */}
           <AICopilotProvider>
