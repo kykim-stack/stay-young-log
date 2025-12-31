@@ -9,6 +9,8 @@ import ThemeToggle from '@/components/ThemeToggle';
 import { AICopilotProvider } from '@/components/AIChat/AICopilotProvider';
 import AICopilotTrigger from '@/components/AIChat/AICopilotTrigger';
 import AICopilotModal from '@/components/AIChat/AICopilotModal';
+import ScrollToTop from '@/components/ScrollToTop';
+import { useRef } from 'react';
 
 export default function RootLayout({
   children,
@@ -16,6 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const TABS = [
     { name: 'Home.tsx', path: '/', icon: 'tsx', color: '#007ACC' },
@@ -191,10 +194,13 @@ export default function RootLayout({
                     })}
                     <div className="grow bg-(--vsc-tab) border-b border-(--vsc-border)" />
                   </div>
-
-                  <div className="flex-1 overflow-y-auto custom-scrollbar pb-20 relative">
+                  <div
+                    ref={scrollRef}
+                    className="flex-1 overflow-y-auto custom-scrollbar pb-20 relative"
+                  >
                     {children}
                   </div>
+                  <ScrollToTop scrollContainerRef={scrollRef} />
                 </div>
               </div>
             </main>

@@ -66,7 +66,7 @@ export default function Comments({ slug }: { slug: string }) {
   }, [slug]);
 
   return (
-    <div className="mt-32 font-mono text-sm border-t border-(--vsc-border)">
+    <div className="font-mono text-sm border-t border-(--vsc-border)">
       <div className="flex gap-6 border-b border-(--vsc-border) mb-8 text-[11px] font-bold">
         <div className="border-b border-(--accent) py-2 px-1 text-(--foreground) cursor-pointer">
           TERMINAL

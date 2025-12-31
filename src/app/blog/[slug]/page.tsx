@@ -3,8 +3,26 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import Comments from '../../../components/Comment';
 import Link from 'next/link';
 import remarkBreaks from 'remark-breaks';
+import rehypePrettyCode from 'rehype-pretty-code';
+import PostButtons from '@/components/PostButtons';
 
 export const revalidate = 60;
+
+const proseStyles = `
+  prose max-w-none font-sans text-(--foreground)
+  prose-strong:text-(--foreground) prose-strong:font-bold
+  prose-headings:text-(--foreground) prose-headings:tracking-tight
+  prose-h1:text-4xl prose-h1:mb-8
+  prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:font-bold prose-h2:text-[#4EC9B0] prose-h2:border-b prose-h2:border-(--vsc-border) prose-h2:pb-2
+  prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:font-semibold
+  prose-p:text-(--foreground) prose-p:opacity-90 prose-p:leading-[2.2] prose-p:my-8 prose-p:text-lg
+  prose-ul:list-disc prose-ol:list-decimal prose-li:my-1
+  prose-a:text-(--accent) prose-a:no-underline hover:prose-a:underline
+  prose-code:text-(--accent) prose-code:bg-(--vsc-tab) prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+  prose-pre:bg-(--vsc-tab) prose-pre:border prose-pre:border-(--vsc-border) prose-pre:shadow-none prose-pre:drop-shadow-none prose-pre:p-4
+  prose-blockquote:border-l-4 prose-blockquote:border-[#6A9955] prose-blockquote:bg-(--vsc-tab) prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:text-[#6A9955] prose-blockquote:not-italic
+  prose-img:rounded-xl prose-img:shadow-lg
+`;
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -45,6 +63,11 @@ export default async function PostPage({
     );
   }
 
+  const allPosts = await getAllPosts();
+  const currentIndex = allPosts.findIndex((p: any) => p.slug === slug);
+  const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+  const nextPost =
+    currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
   return (
     <article className="max-w-5xl mx-auto font-mono">
       <div className="flex items-center gap-2 px-6 py-2 text-[11px] opacity-40 border-b border-(--vsc-border) bg-(--background)">
@@ -114,17 +137,7 @@ export default async function PostPage({
               "
             </p>
 
-            <div className="flex gap-3 pt-2">
-              <button className="px-6 py-1.5 bg-[#007ACC] text-white text-xs font-bold rounded-sm">
-                Install
-              </button>
-              <button className="px-6 py-1.5 border border-(--vsc-border) text-xs font-bold rounded-sm hover:bg-(--vsc-tab)">
-                Disable
-              </button>
-              <button className="px-4 py-1.5 border border-(--vsc-border) text-xs font-bold rounded-sm">
-                ⚙
-              </button>
-            </div>
+            <PostButtons title={post.title} />
           </div>
         </div>
       </header>
@@ -139,50 +152,21 @@ export default async function PostPage({
         </div>
 
         <section className="relative pl-10 border-l border-(--vsc-border) mb-20">
-          <div
-            className="prose max-w-none
-              font-sans
-              /* 1. 기본 텍스트 설정 (라이트/다크 대응) */
-              text-(--foreground) 
-              
-              /* 2. 볼드체(Strong) 색상 강제 지정 - 라이트 모드 가독성 해결 */
-              prose-strong:text-(--foreground) 
-              prose-strong:font-bold
-              
-              /* 3. 노션 스타일 제목(Headings) */
-              prose-headings:text-(--foreground)
-              prose-headings:tracking-tight
-              prose-h1:text-4xl prose-h1:mb-8
-              prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:font-bold prose-h2:text-[#4EC9B0] prose-h2:border-b prose-h2:border-(--vsc-border) prose-h2:pb-2
-              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:font-semibold
-              
-              /* 4. 본문 문단 스타일 */
-              prose-p:text-(--foreground) 
-              prose-p:opacity-90 
-              prose-p:leading-loose
-              prose-p:text-lg
-              prose-p:my-4
-              
-              /* 5. 노션 스타일 리스트(List) */
-              prose-ul:list-disc prose-ol:list-decimal
-              prose-li:my-1
-              
-              /* 6. 링크 및 코드 스타일 */
-              prose-a:text-(--accent) prose-a:no-underline hover:prose-a:underline
-              prose-code:text-(--accent) prose-code:bg-(--vsc-tab) prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
-              
-              /* 7. 인용문(Blockquote) */
-              prose-blockquote:border-l-4 prose-blockquote:border-[#6A9955] prose-blockquote:bg-(--vsc-tab) prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:text-[#6A9955] prose-blockquote:not-italic
-              
-              /* 8. 이미지 */
-              prose-img:rounded-xl prose-img:shadow-lg
-            "
-          >
+          <div className={proseStyles}>
             <MDXRemote
               source={post.content}
               options={{
                 mdxOptions: {
                   remarkPlugins: [remarkBreaks],
+                  rehypePlugins: [
+                    [
+                      rehypePrettyCode,
+                      {
+                        theme: 'one-dark-pro',
+                        keepBackground: false,
+                      },
+                    ],
+                  ],
                 },
               }}
               components={{
@@ -198,10 +182,52 @@ export default async function PostPage({
             />
           </div>
         </section>
-
-        <footer className="mt-32 pt-10 border-(--vsc-border) bg-(--vsc-tab)/10 p-8 rounded-lg">
-          <Comments slug={slug} />
+        <footer className="mt-20 pt-10 border-(--vsc-border)">
+          <div className="mb-8 flex items-center gap-2 opacity-50 text-xs font-bold uppercase tracking-widest">
+            <span className="text-[#4EC9B0]">●</span>
+            Comments_Log
+          </div>
+          <div className="bg-(--vsc-tab)/10 p-6 md:p-8 rounded-lg border border-(--vsc-border)">
+            <Comments slug={slug} />
+          </div>
         </footer>
+        <nav className="grid grid-cols-1 md:grid-cols-2 gap-4 my-20 border-t border-(--vsc-border) pt-10">
+          {prevPost ? (
+            <Link
+              href={`/blog/${prevPost.slug}`}
+              className="group p-4 border border-(--vsc-border) rounded-lg hover:bg-(--vsc-tab)/30 transition-all"
+            >
+              <div className="text-[10px] opacity-40 uppercase mb-1 tracking-widest">
+                Previous Module
+              </div>
+              <div className="text-(--accent) font-bold group-hover:underline">
+                ← {prevPost.title}
+              </div>
+            </Link>
+          ) : (
+            <div className="p-4 border border-dashed border-(--vsc-border) rounded-lg opacity-20 flex items-center justify-center text-xs">
+              First Extension
+            </div>
+          )}
+
+          {nextPost ? (
+            <Link
+              href={`/blog/${nextPost.slug}`}
+              className="group p-4 border border-(--vsc-border) rounded-lg hover:bg-(--vsc-tab)/30 transition-all text-right"
+            >
+              <div className="text-[10px] opacity-40 uppercase mb-1 tracking-widest">
+                Next Module
+              </div>
+              <div className="text-(--accent) font-bold group-hover:underline">
+                {nextPost.title} →
+              </div>
+            </Link>
+          ) : (
+            <div className="p-4 border border-dashed border-(--vsc-border) rounded-lg opacity-20 flex items-center justify-center text-xs text-right">
+              Latest Extension
+            </div>
+          )}
+        </nav>
       </div>
     </article>
   );
