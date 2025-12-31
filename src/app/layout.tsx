@@ -215,6 +215,10 @@ export default function RootLayout({
           <div className="h-6"></div>
         </ThemeProvider>
       </body>
+      <meta
+        name="google-site-verification"
+        content="google-site-verification=rf3bBkNVMMbHw31ppHojzF8le4l54jcGHp7QB73KrzU"
+      />
     </html>
   );
 }
