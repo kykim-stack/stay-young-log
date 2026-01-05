@@ -7,10 +7,7 @@ export default function AICopilotTrigger() {
   return (
     <button
       onClick={open}
-      className="fixed bottom-10 right-8 z-100 group flex items-center justify-between w-64 px-4 py-2.5 
-                 bg-(--vsc-tab) border border-(--vsc-border) text-(--foreground) 
-                 shadow-[0_8px_30px_rgb(0,0,0,0.3)] hover:bg-(--vsc-border) 
-                 transition-all duration-300 rounded-md animate-in fade-in slide-in-from-right-5"
+      className="fixed bottom-10 right-8 z-100 group flex items-center justify-between w-64 px-4 py-2.5 bg-(--vsc-tab) border border-(--vsc-border) text-(--foreground) shadow-[0_8px_30px_rgb(0,0,0,0.3)] hover:bg-(--vsc-border) transition-all duration-300 rounded-md animate-in fade-in slide-in-from-right-5"
     >
       <div className="flex items-center gap-3">
         <div className="w-4 h-4 text-[#007ACC] flex items-center justify-center shrink-0">

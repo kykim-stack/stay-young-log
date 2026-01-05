@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import RightBar from '@/components/RightBar';
+import RightBar from '@/components/blog/RightBar';
 import { getPostData } from '@/lib/posts';
 import { getToc } from '@/lib/toc';
 

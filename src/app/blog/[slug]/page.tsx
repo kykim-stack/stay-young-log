@@ -1,10 +1,10 @@
 import { getPostData, getAllPosts } from '@/lib/posts';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import Comments from '../../../components/Comment';
+import Comments from '../../../components/blog/Comment';
 import Link from 'next/link';
 import remarkBreaks from 'remark-breaks';
 import rehypePrettyCode from 'rehype-pretty-code';
-import PostButtons from '@/components/PostButtons';
+import PostButtons from '@/components/blog/PostButtons';
 
 export const revalidate = 60;
 

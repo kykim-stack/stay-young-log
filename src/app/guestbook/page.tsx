@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import GuestbookInput from '@/components/GuestbookInput';
+import GuestbookInput from '@/components/gusetbook/GuestbookInput';
 
 export default function GuestBook() {
   const [logs, setLogs] = useState<any[]>([]);
