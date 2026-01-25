@@ -18,19 +18,24 @@ export default async function BlogDetailLayout({
   const toc = getToc(postData.content);
 
   return (
-    <div className="flex w-full min-h-screen bg-(--background)">
-      <main className="flex-1 overflow-y-auto custom-scrollbar bg-(--background)">
-        <div className="max-w-5xl mx-auto p-6 md:p-16 pb-32 w-full">
-          {children}
-        </div>
-      </main>
-      <div className="hidden xl:block shrink-0 h-full sticky top-0 border-l border-(--vsc-border)/30">
-        <RightBar
-          slug={slug}
-          toc={toc}
-          category={postData.category}
-          tags={postData.tags}
-        />
+    <div className="flex w-full min-h-screen justify-center bg-(--background) px-4">
+      <div className="flex w-full max-w-7xl justify-center gap-10">
+        <main className="w-full max-w-4xl min-w-0 py-10 md:py-20">
+          <div className="pb-40">{children}</div>
+        </main>
+
+        <aside className="hidden xl:block w-72 shrink-0">
+          <div className="sticky top-32 pt-4">
+            <div className="border-l border-(--vsc-border)/5">
+              <RightBar
+                slug={slug}
+                toc={toc}
+                category={postData.category}
+                tags={postData.tags}
+              />
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );

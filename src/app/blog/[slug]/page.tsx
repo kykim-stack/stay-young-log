@@ -9,39 +9,29 @@ import PostButtons from '@/components/blog/PostButtons';
 export const revalidate = 60;
 
 const proseStyles = `
-  prose max-w-none font-sans text-(--foreground)
-  prose-strong:text-(--foreground) prose-strong:font-bold
-  prose-headings:text-(--foreground) prose-headings:tracking-tight
-  prose-h1:text-4xl prose-h1:mb-8
-  prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:font-bold prose-h2:text-[#4EC9B0] prose-h2:border-b prose-h2:border-(--vsc-border) prose-h2:pb-2
-  prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:font-semibold
-  prose-p:text-(--foreground) prose-p:opacity-90 prose-p:leading-[2.2] prose-p:my-8 prose-p:text-lg
-  prose-ul:list-disc prose-ol:list-decimal prose-li:my-1
-  prose-a:text-(--accent) prose-a:no-underline hover:prose-a:underline
-  prose-code:text-(--accent) prose-code:bg-(--vsc-tab) prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
-  prose-pre:bg-(--vsc-tab) prose-pre:border prose-pre:border-(--vsc-border) prose-pre:shadow-none prose-pre:drop-shadow-none prose-pre:p-4
-  prose-blockquote:border-l-4 prose-blockquote:border-[#6A9955] prose-blockquote:bg-(--vsc-tab) prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:text-[#6A9955] prose-blockquote:not-italic
-  prose-img:rounded-xl prose-img:shadow-lg
+  prose max-w-none font-serif text-(--foreground)
+  prose-headings:text-(--foreground) prose-headings:font-medium
+  prose-h2:text-2xl prose-h2:mt-24 prose-h2:mb-8 prose-h2:pb-4 prose-h2:border-b prose-h2:border-(--vsc-border)/10
+  prose-h3:text-xl prose-h3:mt-12 prose-h3:mb-4
+  prose-p:text-(--foreground)/70 prose-p:leading-[1.8] prose-p:my-6 prose-p:text-[17px] prose-p:font-sans
+  prose-blockquote:border-l-2 prose-blockquote:border-(--accent)/30 prose-blockquote:bg-(--vsc-tab)/10 prose-blockquote:py-2 prose-blockquote:px-8 prose-blockquote:italic
+  prose-code:text-(--accent) prose-code:bg-(--vsc-tab)/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-sm
+  prose-pre:bg-(--vsc-tab)/30 prose-pre:border prose-pre:border-(--vsc-border)/10 prose-pre:p-6 prose-pre:rounded-sm
+  prose-img:rounded-sm prose-img:shadow-sm
 `;
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
-  return posts.map((post: any) => ({
-    slug: post.slug,
-  }));
+  return posts.map((post: any) => ({ slug: post.slug }));
 }
 const slugify = (text: string) => {
-  return (
-    text
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, '-')
-      // 특수문자 제거하되 한글은 유지
-      .replace(/[^\wㄱ-ㅎㅏ-ㅣ가-힣-]/g, '')
-  );
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\wㄱ-ㅎㅏ-ㅣ가-힣-]/g, '');
 };
 
-// params 앞에 await를 쓰는 것이 최신 Next.js의 규칙
 export default async function PostPage({
   params,
 }: {
@@ -50,18 +40,12 @@ export default async function PostPage({
   const { slug } = await params;
   const post = await getPostData(slug);
 
-  if (!post) {
+  if (!post)
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] font-mono border border-dashed border-(--vsc-border) m-10">
-        <h1 className="text-xl font-bold text-[#CD3131] uppercase tracking-widest">
-          Error: Post_Not_Found
-        </h1>
-        <p className="mt-2 text-sm opacity-50">
-          Cannot resolve module: @/blog/{slug}
-        </p>
+      <div className="py-40 text-center font-serif opacity-30">
+        비어있는 공간입니다.
       </div>
     );
-  }
 
   const allPosts = await getAllPosts();
   const currentIndex = allPosts.findIndex((p: any) => p.slug === slug);
@@ -69,166 +53,115 @@ export default async function PostPage({
   const nextPost =
     currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
   return (
-    <article className="max-w-5xl mx-auto font-mono">
-      <div className="flex items-center gap-2 px-6 py-2 text-[11px] opacity-40 border-b border-(--vsc-border) bg-(--background)">
-        <Link
-          href="/"
-          className="hover:opacity-100 hover:text-(--accent) transition-all"
-        >
-          src
+    <article className="max-w-4xl mx-auto py-16 px-6 font-serif">
+      <nav className="flex items-center gap-3 text-[10px] opacity-30 font-sans tracking-[0.2em] uppercase mb-16">
+        <Link href="/blog" className="hover:text-(--accent) transition-colors">
+          Records
         </Link>
-        <span>{'>'}</span>
-        <Link
-          href="/blog"
-          className="hover:opacity-100 hover:text-(--accent) transition-all"
-        >
-          extensions
-        </Link>
-        <span>{'>'}</span>
-        <Link
-          href={`/blog?category=${post.category}`}
-          className="flex items-center gap-1 text-[#4EC9B0] hover:brightness-110 transition-all"
-        >
-          {post.category}
-        </Link>
-        <span>{'>'}</span>
-        <span className="opacity-100 font-bold">{slug}.mdx</span>
-      </div>
-      <header className="p-8 md:p-12 border-b border-(--vsc-border) bg-(--vsc-tab)/20">
-        <div className="flex flex-col md:flex-row gap-10 items-start">
-          <div className="w-32 h-32 md:w-40 md:h-40 bg-(--vsc-tab) border border-(--vsc-border) rounded-xl flex items-center justify-center overflow-hidden shrink-0 shadow-xl">
-            {post.thumbnail ? (
-              <img
-                src={post.thumbnail}
-                alt=""
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span className="text-6xl">📄</span>
-            )}
+        <span className="w-4 h-px bg-current opacity-20" />
+        <span className="text-(--accent)">{post.category}</span>
+      </nav>
+
+      <header className="mb-24 space-y-10">
+        <h1 className="text-4xl md:text-5xl font-medium leading-[1.3] tracking-tight break-keep text-(--foreground)">
+          {post.title}
+        </h1>
+
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-(--vsc-border)/10 text-xs opacity-40 font-sans">
+          <div className="flex items-center gap-4">
+            <span className="font-bold tracking-widest uppercase">
+              Written by Young
+            </span>
+            <span className="w-1 h-1 bg-current rounded-full" />
+            <span>{post.date}</span>
           </div>
-
-          <div className="grow space-y-4">
-            <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-3xl md:text-4xl font-black text-(--foreground) tracking-tighter">
-                {post.title}
-              </h1>
-              <span className="px-2 py-0.5 bg-(--accent) text-white text-xs rounded-sm font-bold">
-                v1.0.0
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4 text-xs font-bold text-(--accent)">
-              <span className="hover:underline cursor-pointer">@young_log</span>
-              <span className="opacity-20 text-(--foreground)">|</span>
-              <span className="text-(--foreground) opacity-60 font-medium italic">
-                {post.category}
-              </span>
-              <span className="opacity-20 text-(--foreground)">|</span>
-              <span className="text-(--foreground) opacity-60 font-normal">
-                Published on {post.date}
-              </span>
-            </div>
-
-            <p className="text-lg text-(--foreground) opacity-70 leading-relaxed italic max-w-3xl">
-              "
-              {post.description ||
-                'No description provided for this extension.'}
-              "
-            </p>
-
-            <PostButtons title={post.title} />
-          </div>
+          <PostButtons title={post.title} />
         </div>
+
+        {post.description && (
+          <p className="text-lg opacity-50 leading-relaxed italic border-l-2 border-(--vsc-border)/30 pl-6 py-1 max-w-3xl">
+            {post.description}
+          </p>
+        )}
       </header>
 
-      <div className="bg-(--background) p-6 md:p-16 relative">
-        <div className="flex gap-8 border-b border-(--vsc-border) mb-12 text-sm font-bold">
-          <div className="border-b-2 border-(--accent) pb-2 text-(--foreground)">
-            Details
-          </div>
-          <div className="opacity-30 pb-2">Changelog</div>
-          <div className="opacity-30 pb-2">Dependencies</div>
-        </div>
+      <section className={proseStyles}>
+        <MDXRemote
+          source={post.content}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkBreaks],
+              rehypePlugins: [
+                [
+                  rehypePrettyCode,
+                  { theme: 'one-dark-pro', keepBackground: true },
+                ],
+              ],
+            },
+          }}
+          components={{
+            h2: (props) => (
+              <h2
+                {...props}
+                id={slugify(String(props.children))}
+                className="scroll-mt-24"
+              />
+            ),
+            h3: (props) => (
+              <h3
+                {...props}
+                id={slugify(String(props.children))}
+                className="scroll-mt-24"
+              />
+            ),
+          }}
+        />
+      </section>
 
-        <section className="relative pl-10 border-l border-(--vsc-border) mb-20">
-          <div className={proseStyles}>
-            <MDXRemote
-              source={post.content}
-              options={{
-                mdxOptions: {
-                  remarkPlugins: [remarkBreaks],
-                  rehypePlugins: [
-                    [
-                      rehypePrettyCode,
-                      {
-                        theme: 'one-dark-pro',
-                        keepBackground: false,
-                      },
-                    ],
-                  ],
-                },
-              }}
-              components={{
-                h2: (props) => {
-                  const id = slugify(String(props.children));
-                  return <h2 {...props} id={id} className="scroll-mt-30" />;
-                },
-                h3: (props) => {
-                  const id = slugify(String(props.children));
-                  return <h3 {...props} id={id} className="scroll-mt-30" />;
-                },
-              }}
-            />
+      <footer className="mt-48 pt-16 border-t border-(--vsc-border)/10">
+        <div className="mb-32">
+          <div className="text-center mb-16 opacity-20 text-[10px] tracking-[0.4em] uppercase font-sans">
+            Conversation
           </div>
-        </section>
-        <footer className="mt-20 pt-10 border-(--vsc-border)">
-          <div className="mb-8 flex items-center gap-2 opacity-50 text-xs font-bold uppercase tracking-widest">
-            <span className="text-[#4EC9B0]">●</span>
-            Comments_Log
-          </div>
-          <div className="bg-(--vsc-tab)/10 p-6 md:p-8 rounded-lg border border-(--vsc-border)">
+          <div className="max-w-3xl mx-auto">
             <Comments slug={slug} />
           </div>
-        </footer>
-        <nav className="grid grid-cols-1 md:grid-cols-2 gap-4 my-20 border-t border-(--vsc-border) pt-10">
+        </div>
+
+        <nav className="grid grid-cols-1 sm:grid-cols-2 gap-12 font-sans border-t border-(--vsc-border)/10 pt-12">
           {prevPost ? (
             <Link
               href={`/blog/${prevPost.slug}`}
-              className="group p-4 border border-(--vsc-border) rounded-lg hover:bg-(--vsc-tab)/30 transition-all"
+              className="group flex flex-col gap-2"
             >
-              <div className="text-[10px] opacity-40 uppercase mb-1 tracking-widest">
-                Previous Module
-              </div>
-              <div className="text-(--accent) font-bold group-hover:underline">
+              <span className="text-[10px] opacity-20 tracking-widest uppercase">
+                이전 기록
+              </span>
+              <span className="text-sm opacity-60 group-hover:text-(--accent) transition-all font-serif truncate">
                 ← {prevPost.title}
-              </div>
+              </span>
             </Link>
           ) : (
-            <div className="p-4 border border-dashed border-(--vsc-border) rounded-lg opacity-20 flex items-center justify-center text-xs">
-              First Extension
-            </div>
+            <div />
           )}
 
           {nextPost ? (
             <Link
               href={`/blog/${nextPost.slug}`}
-              className="group p-4 border border-(--vsc-border) rounded-lg hover:bg-(--vsc-tab)/30 transition-all text-right"
+              className="group flex flex-col gap-2 text-right"
             >
-              <div className="text-[10px] opacity-40 uppercase mb-1 tracking-widest">
-                Next Module
-              </div>
-              <div className="text-(--accent) font-bold group-hover:underline">
+              <span className="text-[10px] opacity-20 tracking-widest uppercase">
+                다음 기록
+              </span>
+              <span className="text-sm opacity-60 group-hover:text-(--accent) transition-all font-serif truncate">
                 {nextPost.title} →
-              </div>
+              </span>
             </Link>
           ) : (
-            <div className="p-4 border border-dashed border-(--vsc-border) rounded-lg opacity-20 flex items-center justify-center text-xs text-right">
-              Latest Extension
-            </div>
+            <div />
           )}
         </nav>
-      </div>
+      </footer>
     </article>
   );
 }

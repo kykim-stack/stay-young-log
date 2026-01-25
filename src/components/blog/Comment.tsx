@@ -55,7 +55,7 @@ export default function Comments({ slug }: { slug: string }) {
         },
         (payload) => {
           // 새로운 댓글이 INSERT 되면, 기존 리스트 맨 앞에 붙여주기!
-          setComments((prev) => [payload.new as Comment, ...prev]);
+          setComments((prev) => [payload.new as any, ...prev]);
         },
       )
       .subscribe();
@@ -66,95 +66,75 @@ export default function Comments({ slug }: { slug: string }) {
   }, [slug]);
 
   return (
-    <div className="font-mono text-sm border-t border-(--vsc-border)">
-      <div className="flex gap-6 border-b border-(--vsc-border) mb-8 text-[11px] font-bold">
-        <div className="border-b border-(--accent) py-2 px-1 text-(--foreground) cursor-pointer">
-          TERMINAL
-        </div>
-        <div className="py-2 opacity-40 cursor-pointer hover:opacity-100 transition-opacity">
-          DEBUG CONSOLE
-        </div>
-        <div className="py-2 opacity-40 cursor-pointer hover:opacity-100 transition-opacity">
-          OUTPUT
-        </div>
+    <div className="font-serif">
+      <div className="flex items-center gap-4 mb-12">
+        <h3 className="text-sm font-sans tracking-[0.3em] opacity-30 uppercase font-bold">
+          Conversation
+        </h3>
+        <div className="flex-1 h-px bg-(--vsc-border)/10" />
+        <span className="text-[10px] opacity-20 font-sans tracking-tighter">
+          {comments.length} Thoughts
+        </span>
       </div>
 
-      <div className="mb-12">
-        <div className="flex items-center gap-2 mb-6 opacity-60">
-          <span className="text-[#4EC9B0]">➔</span>
-          <span className="text-[#569CD6]">~/stay-young-log</span>
-          <span className="text-[#CE9178]">git(main)</span>
-          <span className="text-[#DCDCAA]">npm run comment:write</span>
-        </div>
-
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-4 bg-(--vsc-tab) p-6 rounded-lg border border-(--vsc-border)"
-        >
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex items-center gap-2 grow">
-              <span className="text-[#008000] dark:text-[#6A9955] shrink-0">
-                nickname:
-              </span>
+      <div className="mb-20">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="flex flex-col gap-6">
+            <div className="relative group max-w-50">
               <input
                 type="text"
-                placeholder="Enter_your_name..."
+                placeholder="이름"
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
-                className="w-full bg-transparent border-none focus:outline-none text-(--foreground) placeholder:opacity-20"
+                className="w-full bg-transparent border-b border-(--vsc-border)/20 py-2 outline-none text-sm placeholder:opacity-20 focus:border-(--accent)/50 transition-colors"
+              />
+            </div>
+            <div className="relative group">
+              <textarea
+                placeholder="따뜻한 한마디를 남겨주세요."
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="w-full bg-transparent border-b border-(--vsc-border)/20 py-2 outline-none text-sm placeholder:opacity-20 focus:border-(--accent)/50 transition-colors resize-none h-24 leading-relaxed"
               />
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <span className="text-[#008000] dark:text-[#6A9955]">content:</span>
-            <textarea
-              placeholder="Type your message here..."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="w-full bg-transparent border-none focus:outline-none text-(--foreground) resize-none h-20 placeholder:opacity-20"
-            />
-          </div>
           <div className="flex justify-end">
-            <button className="text-[#4EC9B0] hover:bg-[#4EC9B0]/10 px-4 py-1 border border-[#4EC9B0] rounded-sm transition-all text-xs font-bold">
-              Execute Command (Enter)
+            <button className="text-[11px] font-sans tracking-widest opacity-40 hover:opacity-100 hover:text-(--accent) transition-all border border-current px-6 py-2 uppercase">
+              남기기
             </button>
           </div>
         </form>
       </div>
 
-      <div className="space-y-2">
-        <div className="opacity-30 mb-4 text-[10px]">
-          -- TOTAL COMMENTS: {comments.length} --
-        </div>
-
+      <div className="space-y-12">
         {isLoading ? (
-          <div className="animate-pulse text-(--accent)">
-            [LOADING...] fetching data from supabase...
+          <div className="text-center py-10 opacity-20 text-xs tracking-widest animate-pulse">
+            기록을 불러오는 중입니다...
           </div>
         ) : (
           comments.map((comment) => (
-            <div
-              key={comment.id}
-              className="group flex gap-3 p-2 hover:bg-(--vsc-tab) rounded-sm transition-all border-l-2 border-transparent hover:border-(--accent)"
-            >
-              <span className="opacity-20 shrink-0 select-none">
-                [
-                {new Date(comment.created_at).toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
-                ]
-              </span>
-              <div className="flex flex-col md:flex-row gap-2">
-                <span className="text-[#DCDCAA] font-bold shrink-0">
-                  {comment.nickname}:
-                </span>
-                <span className="text-(--foreground) opacity-80 break-all">
+            <div key={comment.id} className="group animate-fade-in">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-bold opacity-80">
+                    {comment.nickname}
+                  </span>
+                  <span className="text-[10px] opacity-20 font-sans tracking-tighter">
+                    {new Date(comment.created_at).toLocaleDateString()}
+                  </span>
+                </div>
+                <div className="text-[15px] opacity-60 leading-relaxed break-all font-sans">
                   {comment.content}
-                </span>
+                </div>
               </div>
             </div>
           ))
+        )}
+
+        {!isLoading && comments.length === 0 && (
+          <div className="text-center py-20 opacity-10 text-sm italic">
+            아직 전해진 마음이 없습니다.
+          </div>
         )}
       </div>
     </div>

@@ -2,47 +2,48 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] font-mono">
-      <div className="w-full max-w-md bg-(--vsc-tab) border border-(--vsc-border) shadow-xl rounded-lg overflow-hidden animate-in fade-in zoom-in duration-300">
-        <div className="px-4 py-2 bg-(--background) border-b border-(--vsc-border) flex justify-between items-center">
-          <span className="text-xs font-bold text-[#CD3131]">Error: 404</span>
-          <span className="opacity-40 text-xs">NotFound.js</span>
+    <div className="flex flex-col items-center justify-center min-h-[70vh] font-serif text-center px-6">
+      <div className="absolute -z-10 text-[15vw] font-bold opacity-[0.02] select-none tracking-tighter pointer-events-none">
+        空
+      </div>
+
+      <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        <div className="flex justify-center mb-12">
+          <div className="w-12 h-px bg-(--accent) opacity-30" />
         </div>
 
-        <div className="p-8 text-left">
-          <h2 className="text-[#0000FF] dark:text-[#569CD6] font-bold text-lg mb-4">
-            throw new Error("PageNotFound");
-          </h2>
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight break-keep leading-tight">
+          잠시 비어있는 <br />
+          <span className="text-(--accent) opacity-80">기록의 자리</span>입니다.
+        </h2>
 
-          <div className="space-y-2 opacity-70 text-sm leading-relaxed">
-            <p className="text-[#008000] dark:text-[#6A9955]">
-              // 찾으시는 페이지가 존재하지 않거나
-            </p>
-            <p className="text-[#008000] dark:text-[#6A9955]">
-              // 이동되었을 수 있습니다.
-            </p>
-          </div>
+        <p className="max-w-xs mx-auto text-sm md:text-base opacity-40 font-sans leading-relaxed break-keep">
+          찾으시는 이야기가 이곳에 없거나 <br className="hidden sm:block" />
+          다른 서가로 옮겨졌을 수 있습니다.
+        </p>
 
-          <div className="mt-8 pt-6 border-t border-(--vsc-border) flex flex-col gap-3">
-            <Link
-              href="/"
-              className="w-full text-center py-2 bg-[#007ACC] hover:bg-[#005A9E] text-white font-bold text-xs transition-colors rounded-sm"
-            >
-              cd .. && npm start (홈으로 이동)
-            </Link>
-            <Link
-              href="/blog"
-              className="w-full text-center py-2 border border-[#007ACC] text-[#007ACC] dark:border-[#3794FF] dark:text-[#3794FF] font-bold text-xs hover:bg-[#007ACC] hover:text-white dark:hover:bg-[#3794FF] transition-all rounded-sm"
-            >
-              ls ./src/blog (글 목록 보기)
-            </Link>
-          </div>
+        <div className="pt-12 flex flex-col sm:flex-row items-center justify-center gap-8 font-sans">
+          <Link
+            href="/"
+            className="group flex items-center gap-3 text-sm tracking-widest opacity-40 hover:opacity-100 transition-all"
+          >
+            <span className="w-8 h-px bg-current opacity-20 group-hover:w-12 transition-all" />
+            처음으로 돌아가기
+          </Link>
+
+          <Link
+            href="/blog"
+            className="group flex items-center gap-3 text-sm tracking-widest opacity-40 hover:opacity-100 transition-all"
+          >
+            <span className="w-8 h-px bg-current opacity-20 group-hover:w-12 transition-all" />
+            기록물 목록 보기
+          </Link>
         </div>
       </div>
 
-      <h1 className="absolute -z-10 text-[20vw] font-black opacity-[0.03] select-none tracking-tighter">
-        NOT FOUND
-      </h1>
+      <div className="mt-24 opacity-10 text-[10px] tracking-[0.8em] uppercase font-sans">
+        Stay Young Archive
+      </div>
     </div>
   );
 }

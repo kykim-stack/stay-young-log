@@ -7,97 +7,44 @@ export default async function BlogPage() {
   const allPosts = await getAllPosts();
 
   return (
-    <main className="w-full py-4 animate-fade-in font-mono">
-      <div className="bg-(--background)  border-(--vsc-border) border-b-0 shadow-xl">
-        <header className="p-8 md:p-12 border-b border-(--vsc-border) relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-4 opacity-[0.03] text-[10px] select-none leading-tight pointer-events-none">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i}>010110101101010101101010110101</div>
-            ))}
+    <main className="w-full py-12 animate-fade-in font-serif">
+      <header className="px-6 md:px-0 mb-20 space-y-8">
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-2 opacity-30 text-[10px] tracking-[0.4em] font-sans">
+            <span className="w-8 h-px bg-current" />
+            COLLECTED RECORDS
           </div>
 
-          <div className="relative z-10 space-y-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div>
-                <div className="flex items-center gap-2 text-[#6A9955] mb-2 text-sm italic">
-                  <span>/** @workspace_status */</span>
-                </div>
-                <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-(--foreground)">
-                  SYSTEM_CORE<span className="text-(--accent)">:</span>
-                  <span className="opacity-40 uppercase">Journal</span>
-                </h1>
-              </div>
+          <h1 className="text-4xl md:text-5xl font-medium tracking-tight text-(--foreground)">
+            기록의 <span className="text-(--accent) opacity-80">숲</span>
+          </h1>
 
-              <div className="flex gap-4">
-                <div className="text-right">
-                  <p className="text-[10px] opacity-40 font-bold uppercase tracking-widest">
-                    Build Status
-                  </p>
-                  <p className="text-[#4EC9B0] text-sm font-bold">
-                    ● Optimized
-                  </p>
-                </div>
-                <div className="w-px h-10 bg-(--vsc-border)" />
-                <div className="text-right">
-                  <p className="text-[10px] opacity-40 font-bold uppercase tracking-widest">
-                    Environment
-                  </p>
-                  <p className="text-[#DCDCAA] text-sm font-bold">Production</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-(--vsc-tab)/50 border border-(--vsc-border) p-4 rounded-sm">
-                <p className="text-[#569CD6] text-xs font-bold mb-1">
-                  Total_Modules
-                </p>
-                <p className="text-2xl font-bold">{allPosts.length}</p>
-                <div className="w-full bg-(--vsc-border) h-1 mt-3 rounded-full overflow-hidden">
-                  <div
-                    className="bg-[#4EC9B0] h-full"
-                    style={{ width: '100%' }}
-                  />
-                </div>
-              </div>
-
-              <div className="bg-(--vsc-tab)/50 border border-(--vsc-border) p-4 rounded-sm">
-                <p className="text-[#DCDCAA] text-xs font-bold mb-1">
-                  Last_Synced
-                </p>
-                <p className="text-xl font-bold truncate">Just Now</p>
-                <p className="text-[10px] opacity-40 mt-3 italic text-right">
-                  via Notion_API_Sync
-                </p>
-              </div>
-
-              <div className="bg-(--vsc-tab)/50 border border-(--vsc-border) p-4 rounded-sm">
-                <p className="text-[#CE9178] text-xs font-bold mb-1">
-                  Connectivity
-                </p>
-                <p className="text-xl font-bold text-[#4EC9B0]">Stable</p>
-                <div className="flex gap-1 mt-4">
-                  <div className="w-2 h-2 bg-[#4EC9B0] rounded-full animate-pulse" />
-                  <div className="w-2 h-2 bg-[#4EC9B0] rounded-full opacity-50" />
-                  <div className="w-2 h-2 bg-[#4EC9B0] rounded-full opacity-20" />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 text-xs">
-              <span className="text-[#6A9955]">
-                // Ready to serve high-quality contents
-              </span>
-              <div className="h-px grow bg-(--vsc-border) opacity-30" />
-              <span className="opacity-30">v.15.Next</span>
-            </div>
-          </div>
-        </header>
-
-        <div className="p-8">
-          <BlogList allPosts={allPosts} />
+          <p className="max-w-2xl text-base opacity-40 font-sans leading-relaxed pt-2">
+            배움의 흔적과 일상의 사유를 차곡차곡 쌓아두었습니다. <br />
+            천천히 서가를 거닐며 필요한 문장을 찾아보세요.
+          </p>
         </div>
-      </div>
+
+        <div className="flex items-center gap-6 pt-6 border-t border-(--vsc-border)/10 text-[11px] font-sans tracking-widest opacity-30">
+          <div className="flex items-center gap-2">
+            <span className="font-bold">총 기록</span>
+            <span className="text-(--accent)">{allPosts.length}수</span>
+          </div>
+          <div className="w-px h-3 bg-current opacity-20" />
+          <div className="flex items-center gap-2 uppercase">
+            <span>Last Updated</span>
+            <span>2026 / 01</span>
+          </div>
+        </div>
+      </header>
+
+      <section className="mt-12">
+        <BlogList allPosts={allPosts} />
+      </section>
+
+      <footer className="mt-32 py-10 text-center">
+        <div className="w-1.5 h-1.5 bg-(--accent) opacity-20 rotate-45 mx-auto" />
+      </footer>
     </main>
   );
 }

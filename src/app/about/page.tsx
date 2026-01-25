@@ -1,155 +1,103 @@
+'use client';
+
 import MyTimeline from '@/components/about/MyCareer';
 
 export default function About() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 animate-fade-in font-mono">
-      <div className="flex flex-col lg:flex-row gap-12">
-        <div className="flex-1 lg:max-w-[60%]">
-          <section className="mb-24">
-            <div className="flex items-center gap-2 text-[#0000FF] dark:text-[#569CD6] mb-4 opacity-50">
-              <span className="text-xl">#</span>
-              <span className="text-xs font-bold tracking-widest">
-                INTRODUCTION
-              </span>
-            </div>
-            <h1 className="text-3xl md:text-5xl font-black mb-8 tracking-tight leading-tight text-(--foreground)">
-              안녕하세요, <br />
-              <span className="text-(--accent)">가영(Young)</span>입니다.
-              <span className="animate-pulse">_</span>
-            </h1>
+    <div className="max-w-2xl mx-auto py-24 px-6 font-serif animate-fade-in">
+      <div className="flex flex-col gap-40">
+        <section className="space-y-12 text-center md:text-left">
+          <div className="flex items-center justify-center md:justify-start gap-3 opacity-20 text-[10px] tracking-[0.4em] font-sans">
+            <span className="w-8 h-px bg-current" />
+            INTRODUCTION
+          </div>
 
-            <div className="space-y-6 text-base md:text-lg text-(--foreground) opacity-80 leading-relaxed max-w-2xl border-l-4 border-(--vsc-border) pl-6 py-2 italic mb-12">
-              <p>“오늘의 나를 더 성장하게 만들어 나가는 과정을 좋아합니다.”</p>
-              <p className="not-italic opacity-70 text-sm md:text-base">
-                React와 TypeScript를 주로 사용하는 프론트엔드 개발자입니다.
-              </p>
-            </div>
+          <h1 className="text-4xl md:text-5xl font-medium leading-[1.4] tracking-tight break-keep">
+            기록을 통해 어제의 나보다 <br />
+            <span className="text-(--accent)">단단해지는</span> 과정에 있습니다.
+          </h1>
 
-            <div className="flex flex-wrap gap-4 mt-8">
-              <a
-                href="https://github.com/kikayoung"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 bg-[#007ACC] text-white font-bold text-sm hover:brightness-110 transition-all rounded-sm flex items-center gap-2"
-              >
-                <span>$</span> git checkout github
-              </a>
-              {/* <a
-          href="https://linkedin.com/..."// 링크드인 없음ㅜㅜ
-          className="px-5 py-2 border border-gray-200 rounded-full text-sm hover:bg-gray-50 transition-all"
-        >
-          LinkedIn
-        </a> */}
-              <a
-                href="mailto:kayoung7189@naver.com"
-                className="px-6 py-2 border border-[#007ACC] text-[#007ACC] dark:border-[#3794FF] dark:text-[#3794FF] font-bold text-sm hover:bg-[#007ACC] hover:text-white transition-all rounded-sm"
-              >
-                mailto:kayoung7189@naver.com
-              </a>
-            </div>
-          </section>
+          <div className="space-y-6 text-base md:text-lg opacity-60 leading-[1.8] font-sans">
+            <p>
+              안녕하세요, 프론트엔드 개발자 가영입니다. <br />
+              단순히 기능을 만드는 것을 넘어, 그 과정에서 얻은 배움을{' '}
+              <br className="hidden md:block" />
+              정갈하게 정리하여 이곳에 보관하고 있습니다.
+            </p>
+          </div>
 
-          <section className="mb-32">
-            <div className="flex items-center gap-2 text-[#0000FF] dark:text-[#569CD6] mb-8 opacity-50">
-              <span className="text-xl">##</span>
-              <span className="text-xs font-bold tracking-widest">
-                TECH_STACK.ts
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div className="p-4 border border-(--vsc-border) rounded-sm bg-(--vsc-tab)/30">
-                <h3 className="text-[#569CD6] font-bold mb-3 text-sm">
-                  Frontend
-                </h3>
-                <ul className="text-xs space-y-2 opacity-70">
-                  <li>• React / Next.js 15</li>
-                  <li>• TypeScript</li>
-                  <li>• Tailwind CSS</li>
-                  <li>• Framer Motion</li>
-                </ul>
-              </div>
-              <div className="p-4 border border-(--vsc-border) rounded-sm bg-(--vsc-tab)/30">
-                <h3 className="text-[#4EC9B0] font-bold mb-3 text-sm">DB</h3>
-                <ul className="text-xs space-y-2 opacity-70">
-                  <li>• Supabase (Realtime)</li>
-                  <li>• PostgreSQL</li>
-                  <li>• Notion API (CMS)</li>
-                </ul>
-              </div>
-              <div className="p-4 border border-(--vsc-border) rounded-sm bg-[#DCDCAA]22">
-                <h3 className="text-[#DCDCAA] font-bold mb-3 text-sm">Tools</h3>
-                <ul className="text-xs space-y-2 opacity-70">
-                  <li>• Github</li>
-                  <li>• Vercel</li>
-                  <li className="text-(--accent) font-medium italic">
-                    • Gemini (AI Pair)
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
+          <div className="pt-6 flex justify-center md:justify-start gap-10 font-sans">
+            <a
+              href="https://github.com/kikayoung"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 text-[11px] tracking-widest opacity-40 hover:opacity-100 transition-all uppercase"
+            >
+              Github
+            </a>
+            <a
+              href="mailto:kayoung7189@naver.com"
+              className="group flex items-center gap-2 text-[11px] tracking-widest opacity-40 hover:opacity-100 transition-all uppercase"
+            >
+              Email
+            </a>
+          </div>
+        </section>
 
-          <section className="mb-32">
-            <div className="flex items-center gap-2 text-[#0000FF] dark:text-[#569CD6] mb-6 opacity-50">
-              <span className="text-xl">##</span>
-              <span className="text-xs font-bold tracking-widest">
-                SYSTEM_ARCHITECTURE.json
-              </span>
+        <section className="space-y-16">
+          <div className="flex flex-col items-center gap-4 mb-8">
+            <h2 className="text-[10px] tracking-[0.5em] opacity-30 font-sans font-bold uppercase">
+              Tools & Craft
+            </h2>
+            <div className="w-px h-12 bg-(--vsc-border)/20" />
+          </div>
+
+          <div className="space-y-20">
+            <div className="text-center space-y-6">
+              <h3 className="text-sm font-bold text-(--accent) opacity-80 tracking-widest uppercase">
+                Frontend
+              </h3>
+              <ul className="text-sm space-y-4 opacity-50 font-sans leading-relaxed">
+                <li>React / Next.js 15</li>
+                <li>TypeScript</li>
+                <li>Tailwind CSS</li>
+                <li>Framer Motion</li>
+              </ul>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-(--vsc-tab) p-8 rounded-lg border border-(--vsc-border)">
-              {[
-                {
-                  label: 'Hybrid CMS',
-                  desc: 'Notion API와 Markdown 렌더링을 결합했습니다.',
-                },
-                {
-                  label: 'Realtime Interaction',
-                  desc: 'Supabase Realtime으로 실시간 소통을 설계했습니다.',
-                },
-                {
-                  label: 'Type Safety',
-                  desc: '프로젝트 전체에 TypeScript를 적용했습니다.',
-                },
-                {
-                  label: 'Performance',
-                  desc: 'Next.js의 ISR을 통해 빠른 서빙을 구현했습니다.',
-                },
-              ].map((item) => (
-                <div key={item.label} className="group">
-                  <h3 className="font-bold text-[#DCDCAA] text-sm mb-2">
-                    "{item.label}":
-                  </h3>
-                  <p className="text-[13px] opacity-60 leading-relaxed pl-4 border-l border-(--vsc-border) group-hover:border-(--accent) transition-colors">
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
+            <div className="text-center space-y-6">
+              <h3 className="text-sm font-bold text-(--accent) opacity-80 tracking-widest uppercase">
+                Core & Data
+              </h3>
+              <ul className="text-sm space-y-4 opacity-50 font-sans leading-relaxed">
+                <li>Supabase / PostgreSQL</li>
+                <li>Notion API (CMS)</li>
+                <li>Vercel / GitHub</li>
+              </ul>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
 
-        <aside className="hidden lg:block w-full lg:w-[40%]">
-          <div className="sticky top-24">
-            <div className="flex items-center gap-2 text-[#0000FF] dark:text-[#569CD6] mb-6 opacity-50">
-              <span className="text-xl">##</span>
-              <span className="text-xs font-bold tracking-widest uppercase">
-                GIT_GRAPH.log
-              </span>
-            </div>
+        <section className="space-y-16">
+          <div className="flex flex-col items-center gap-4 mb-8">
+            <h2 className="text-[10px] tracking-[0.5em] opacity-30 font-sans font-bold uppercase">
+              Timeline
+            </h2>
+            <div className="w-px h-12 bg-(--vsc-border)/20" />
+          </div>
+
+          <div className="opacity-80 font-sans max-w-lg mx-auto overflow-hidden">
             <MyTimeline />
           </div>
-        </aside>
-      </div>
+        </section>
 
-      <footer className="mt-32 py-12 border-t border-(--vsc-border) text-center w-full">
-        <p className="text-sm opacity-40 italic mb-8">
-          "Keep pushing, keep coding."
-        </p>
-        <div className="opacity-20 text-[10px] tracking-[0.5em] uppercase">
-          EOF (End of File)
-        </div>
-      </footer>
+        <footer className="pt-20 border-t border-(--vsc-border)/10 text-center">
+          <p className="text-sm opacity-30 italic font-serif">
+            "기록은 흐릿한 기억보다 선명합니다."
+          </p>
+          <div className="mt-12 w-1.5 h-1.5 bg-(--accent) opacity-20 rotate-45 mx-auto" />
+        </footer>
+      </div>
     </div>
   );
 }

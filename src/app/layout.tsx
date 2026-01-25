@@ -26,8 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    // "Missing html and body tags"
     <html lang="ko" suppressHydrationWarning>
-      <body>
+      <body className="antialiased transition-colors duration-500">
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

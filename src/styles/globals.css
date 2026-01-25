@@ -11,23 +11,21 @@
 }
 
 :root {
-  /* --- VS Code Light --- */
-  --background: #ffffff;
-  --foreground: #333333;
-  --accent: #007acc;
-  --accent-soft: #eff6fc;
-  --vsc-tab: #f3f3f3;
-  --vsc-border: #e5e5e5;
+  --background: #f8f4eb;
+  --foreground: #2d2926;
+  --accent: #8e3e26;
+  --accent-soft: #ede4d3;
+  --vsc-tab: #e8e1d1;
+  --vsc-border: #d4cbb3;
 }
 
 .dark {
-  /* --- VS Code Dark --- */
-  --background: #1e1e1e; /* 에디터 배경 */
-  --foreground: #d4d4d4; /* 기본 텍스트 */
-  --accent: #3794ff; /* 다크모드 하이라이트 블루 */
-  --accent-soft: #2a2d2e; /* 선택된 줄 배경 느낌 */
-  --vsc-tab: #252526; /* 탭/사이드바 배경 */
-  --vsc-border: #333333; /* 경계선 */
+  --background: #1a1918;
+  --foreground: #ccc5b9;
+  --accent: #d4af37;
+  --accent-soft: #2d2b29;
+  --vsc-tab: #242220;
+  --vsc-border: #3d3a36;
 }
 
 @layer base {
@@ -35,10 +33,13 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: 'Pretendard Variable', ui-monospace, SFMono-Regular, Menlo,
-      Monaco, Consolas, monospace;
+    font-family:
+      'Pretendard Variable', ui-monospace, SFMono-Regular, Menlo, Monaco,
+      Consolas, monospace;
     -webkit-font-smoothing: antialiased;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 }
 
